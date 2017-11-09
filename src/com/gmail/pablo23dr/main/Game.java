@@ -12,6 +12,10 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private boolean running = false;
 
+	private Handler handler;
+	
+	
+	
 	public static void main(String[] args) {
 		new Game();
 
@@ -19,7 +23,10 @@ public class Game extends Canvas implements Runnable {
 	
 	public Game() {
 		new Window(WIDTH, HEIGHT, "Game", this);
-
+		
+		handler = new Handler();
+		
+		
 	}
 	
 	public synchronized void start() {
@@ -39,6 +46,17 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+
+
+	private void tick() {
+		//----------------------------------------------
+		handler.tick();
+		
+		
+		
+		//----------------------------------------------
+	}
+	
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
@@ -50,16 +68,14 @@ public class Game extends Canvas implements Runnable {
 		
 		gfx.setColor(Color.black);
 		gfx.fillRect(0, 0, WIDTH, HEIGHT);
+		//----------------------------------------------
+		
+		handler.render(gfx);
 		
 		
+		//----------------------------------------------
 		gfx.dispose();
 		bs.show();
-		
-	}
-
-	private void tick() {
-
-
 		
 	}
 
